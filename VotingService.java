@@ -36,15 +36,19 @@ public class VotingService {
         this.test = test; 
     }
 
+    //converts the ArrayList<String> into a string
     private String printAnswer(ArrayList<String> inputArray) {
         String ListToString = inputArray.stream().map(Object::toString).collect(Collectors.joining("")); 
         return ListToString;
     }
 
+    //this method uses a HashMap to keep track of the student answers so we can print out all the results at the end 
     public void answerTrack(ArrayList<String> inputArray) {
         String finalAnswer = printAnswer(inputArray);
         HashMap<Character, Integer> charCount = new HashMap<Character,Integer>(); 
         char[] stringArray = finalAnswer.toCharArray(); 
+
+        //if our intended character is in the array, we will increment and continue; else we will return 1
         for(char c : stringArray) {
             if(charCount.containsKey(c)) {
                 charCount.put(c, charCount.get(c) + 1); 

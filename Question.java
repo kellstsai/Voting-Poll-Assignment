@@ -1,6 +1,7 @@
 import java.io.StreamCorruptedException;
 import java.util.*;
 
+//getters and setters for the Question class
 public class Question {
     private int numberOfChoices; 
     private String actualQuestion; 
@@ -36,10 +37,11 @@ public class Question {
         return type; 
     }
 
-    public String toString() {
+    public String toString() {  //will return the question, the number of choices available, and the type of question(multiple choice or single choice)
         return "The question is: " + this.actualQuestion + "\nWith number of choices: " + this.numberOfChoices + " and type:" + this.type; 
     }
 
+    //method that shows what kind of questions are being asked (one answer vs multiple answers)
     public String questionChoice(int typeOfQuestion) {
         int a = 64; 
         numberOfChoices += a; 
@@ -55,67 +57,60 @@ public class Question {
         }
     }
 
+    //a method that returns a random choice; only allows one answer to be returned 
     public String singleChoiceQuestion(int numberOfChoices) {
-        Random r = new Random(); 
-        char[] letterChoices = {'A', 'B', 'C', 'D', 'E'}; 
+        Random r = new Random(); //allows for random answers
+        char[] letterChoices = {'A', 'B', 'C', 'D', 'E'}; //array of possible choices
 
-        char output = (char)(r.nextInt(numberOfChoices) + 'A');
-        String output2 = Character.toString(output); 
+        char output = (char)(r.nextInt(numberOfChoices) + 'A'); //takes a random integer and casts it to a character using ASCII 
+        String output2 = Character.toString(output); //converts the char to a string
         return output2; 
      }
-      /*  Random r = new Random(); 
-        char c = (char)(r.nextInt(numberOfChoices + 'A')); 
-        String string = Character.toString(c); 
-        return string; 
-*/
 
+     //a method that allows the return of more than one answer choice
+     /*
+      * method allows us to randomly choose how many answers are returned as well as which answers are returned
+      */
      public String multipleChoiceQuestions(int numberOfChoices) {
-        Set<Character> hs = new LinkedHashSet<Character>(); 
+        Set<Character> hs = new LinkedHashSet<Character>();     //use a hashSet so we can make sure that there are no duplicate answers possible
         Random r = new Random(); 
-        StringBuilder sb = new StringBuilder(); 
+        StringBuilder sb = new StringBuilder();     //takes a string of characters and condenses it into one singular string
         StringBuilder strbuild = new StringBuilder(); 
-        char[] letterChoices = {'A', 'B', 'C', 'D', 'E', 'F', 'G'}; 
+        char[] letterChoices = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};     //array of possible choices
         int numberOfTimes = r.nextInt(numberOfChoices - 1) + 1; 
-        for(int i = 0; i < numberOfTimes + 1; i++) {
-            //System.out.print("i wanna die" + numberOfChoices); 
-            char output = letterChoices[r.nextInt(numberOfTimes)];
-            hs.add(output);
-            //System.out.print("HELLLOOOOO" + output); 
+        for(int i = 0; i < numberOfTimes + 1; i++) {    
+            char output = letterChoices[r.nextInt(numberOfTimes)];  //takes a random letter and casts it to type character
+            hs.add(output); 
             String string = Character.toString(output); 
-            strbuild.append(string); 
+            strbuild.append(string); //appends into a single string
         }
 
         String answer = strbuild.toString(); 
         char[] secondArray = answer.toCharArray(); 
+
+        //second array of characters added into a hashSet
         for(char output : secondArray) {
             hs.add(output);  
-            //System.out.print("BITCHHHH" + output); 
         }
+
+        //appends into one singular string
         for(Character character : hs) {
             sb.append(character); 
         }
+
         answer = sb.toString(); 
         return answer;
         
      } 
 
-     /*public void randomizedStudentAnswer(int typeOfQuestion, int numberOfChoices) {
-        if(typeOfQuestion == 1) {
-            this.answer = multipleChoiceQuestions(numberOfChoices);
-        }
-        else if(typeOfQuestion == 0) {
-            this.answer = singleChoiceQuestion(numberOfChoices); 
-        }
-    }
-    */
-
+     //a method to generate a random ID of length 10 for the student 
     public String getRandomID(int IDLength) {
-        String random = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        String random = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";   //I wanted to include every letter and number possible for more randomness
         Random r = new Random(); 
-        StringBuilder str = new StringBuilder();
+        StringBuilder str = new StringBuilder();    //allows to become into a string
         for (int i = 0; i < 10; i++) {
-            int rand = r.nextInt(random.length()); 
-            str.append(random.charAt(rand)); 
+            int rand = r.nextInt(random.length());  //takes our string of random
+            str.append(random.charAt(rand));        //appends into a string 
 
         }
         return str.toString(); 
